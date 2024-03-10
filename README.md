@@ -1,4 +1,4 @@
-# Spot Micro Quadruped Project
+# Spot Micro Quadruped Project (번역본)
 
 ![Spot Micro Walking](assets/spot_micro_walking.gif)
 ![RVIZ](assets/rviz_animation.gif)
@@ -18,36 +18,35 @@ Video of robot: https://www.youtube.com/watch?v=S-uzWG9Z-5E
 * [External Links](#external-links)
 
 ## Overview
-This project is the source code for a Spot Micro quadruped, a 4 legged open source robot. This code implements motion control of a 3d printed spot micro robot, including sit, stand, angle and walk control. Supporting libraries provide additional capabilities, such as mapping through SLAM and a body mounted lidar. The software is implemented on a Raspberry Pi 3B running Ubuntu 16.04 with ROS Kinetic installed.
+본 프로젝트는 4족 오픈소스 로봇인 Spot Micro Quadruped의 소스코드입니다. 이 코드는 앉기, 서기, 각도 및 걷기 제어를 포함하여 3D 프린팅된 스팟 마이크로 로봇의 모션 제어를 구현합니다. 지원 라이브러리는 SLAM을 통한 매핑 및 본체 장착 라이더와 같은 추가 기능을 제공합니다. 이 소프트웨어는 ROS Kinetic이 설치된 Ubuntu 16.04를 실행하는 Raspberry Pi 3B에서 구현됩니다.
 
-The software is composed of C++ and Python nodes in a ROS framework.
+이 소프트웨어는 ROS 프레임워크의 C++ 및 Python 노드로 구성됩니다.
 
 #### Hardware:
-The frame utilized is the Thingverse Spot Micro frame developed by KDY0523. See [the thingverse page](https://www.thingiverse.com/thing:3445283) for additional details for assembly hardware. The files for cls6336hv servos were printed which also fit the hv5523mg servos I used.
+활용된 프레임은 KDY0523에서 개발한 Thingverse Spot Micro 프레임입니다. 조립 하드웨어에 대한 자세한 내용은 [thingverse 페이지](https://www.thingiverse.com/thing:3445283)를 참조하세요. 이 프로젝트에서 사용한 hv5523mg 서보에도 맞는 cls6336hv 서보용 파일이 인쇄되었습니다.
 
 Component List:
-* Computer: Raspberry Pi 3B 
-* Servo control board: PCA9685, controlled via i2c
-* Servos: 12 x PDI-HV5523MG
-* LCD Panel: 16x2 i2c LCD panel (Optional)
-* Battery: 2s 4000 mAh Lipo, direct connection to servo board for servo power
-* UBEC: HKU5 5V/5A ubec, used as 5v voltage regulator to power raspberry pi, lcd panel, pca9685 control board.
+* 마이크로컨트롤러: Raspberry Pi 3B 
+* 서보 모터 드라이버: PCA9685 (i2c 방식으로 제어)
+* 서보 모터: PDI-HV5523MG x 12개
+* LCD 패널: 16x2 i2c LCD panel (선택사항항)
+* 배터리: 2s 4000 mAh 리튬 폴리머 배터리 (서보 모터 드라이버에 직접 연결)
+* UBEC(전원공급장치): HKU5 5V/5A ubec (라즈베리 파이, lcd 패널, pca9685에 5V 전원 공급)
 * Lidar: RPLidar A1
-* Custom 3d printed parts for mounts and reinforcements
+* 전용 3D 프린트 마운트
 
-More information about the hardware, including the additional custom 3d printed parts, coordinate system information, and sample hardware installation photos, can be found in the [additional hardware description](docs/additional_hardware_description.md) document.
+추가 맞춤형 3D 프린팅 부품, 좌표계 정보, 샘플 하드웨어 설치 사진 등 하드웨어에 대한 자세한 내용은 [추가 하드웨어 설명](docs/additional_hardware_description.md) 문서에서 확인할 수 있습니다.
 
 
 #### Software:
-This repo is structured as a catkin workspace in a ROS Kinetic envivornment on Ubuntu 16.04. The software may not work or compile outside this environment. Raspberry Pi images preloaded with Ubuntu 16.04 and a ROS Kinetic installation can be found via ubiquity robotics. [See ubiquity robotics webpage](https://downloads.ubiquityrobotics.com/) for download, setup, and wifi setup instructions. It is suggested to also install ROS Kinetic on a Ubuntu 16.04 linux installation/dual boot/virtual machine on a PC for development and for running control nodes. Instructions to install ROS kinetic can be found [here](http://wiki.ros.org/kinetic/Installation/Ubuntu).
+이 저장소는 Ubuntu 16.04의 ROS Kinetic 환경에서 catkin 작업 공간으로 구성되어 있습니다. 소프트웨어는 이 환경 외부에서 작동하거나 컴파일되지 않을 수 있습니다. Ubuntu 16.04 및 ROS Kinetic 설치가 사전 로드된 Raspberry Pi 이미지는 유비쿼터스 로봇공학 웹페이지를 통해 찾을 수 있습니다. 다운로드, 설정, Wi-Fi 설정 지침은 [유비쿼터스 로봇공학 웹페이지](https://downloads.ubiquityrobotics.com/)를 참조하세요. 개발 및 제어 노드 실행을 위해 PC의 Ubuntu 16.04 Linux 설치/듀얼 부팅/가상 머신에 ROS Kinetic을 설치하는 것도 권장됩니다. ROS kinine 설치 지침은 [여기](http://wiki.ros.org/dynamic/Installation/Ubuntu)에서 확인할 수 있습니다.
 
-**NOTE**  A SWAP partition of about 1 GB on the RPI's sd card is necessary to increase the virtual memory available beyond the RPI's onboard RAM. In my experience the catkin compilation process uses all the onboard RAM and stalls indefinitely and does not complete without adding a SWAP partition. Example instructions for adding a SWAP partition [can be found here](https://nebl.io/neblio-university/enabling-increasing-raspberry-pi-swap/). 
+**참고** RPI의 온보드 RAM 이상으로 사용 가능한 가상 메모리를 늘리려면 RPI의 SD 카드에 약 1GB의 SWAP 파티션이 필요합니다. 경험적으로 SWAP 파티션을 추가하지 않으면 catkin 컴파일 프로세스는 온보드 RAM을 모두 사용하고 무한정 정지되며 완료되지 않습니다. SWAP 파티션 추가에 대한 예제 지침은 [여기에서 찾을 수 있습니다](https://nebl.io/neblio-university/enabling-increasing-raspberry-pi-swap/).
 
-The provided ROS Catkin make build system can be utilized, but I used `catkin tools` instead ([see catkin tools website]((https://catkin-tools.readthedocs.io/en/latest/))). Compilation commands below will be given assuming `catkin tools`. If not using catkin tools on the raspberry pi, the stock `catkin_make` can be used to compile the code via command such as `catkin_make -DCMAKE_BUILD_TYPE=Release` from the home of the catkin workspace.
+제공된 ROS Catkin make 빌드 시스템을 활용할 수 있지만 대신 'catkin tools'를 사용했습니다([catkin tools 웹사이트 참조]((https://catkin-tools.readthedocs.io/en/latest/))). 아래 컴파일 명령은 `catkin tools`를 가정하여 제공됩니다. 라즈베리 파이에서 catkin 도구를 사용하지 않는 경우 스톡 `catkin_make`를 사용하여 catkin 작업 공간 홈에서 `catkin_make -DCMAKE_BUILD_TYPE=Release`와 같은 명령을 통해 코드를 컴파일할 수 있습니다.
 
 ##### Software Checkout and Setup:
-
-This repo should be checked out to a catkin workspace on the raspberry pi so the directory structure appears as below. If not already available, a catkin workspace can be created or transitioned from a catkin make workspace using catkin tools ([or if using stock ROS tools, see tutorial pages for creating a catkin workspace](http://wiki.ros.org/catkin/Tutorials/create_a_workspace)). If you don't have the pi connected to the internet you could use the catkin commands to create the workspace on another conputer, then copy the files to a RPi over wifi via scp. For example: `scp spotMicro/* ubuntu@10.42.0.1:~/catkin_ws/src/`.
+이 저장소는 라즈베리 파이의 catkin 작업 공간으로 체크아웃되어야 디렉토리 구조가 아래와 같이 나타납니다. 아직 사용할 수 없는 경우 catkin 도구를 사용하여 catkin 작업 공간을 만들거나 catkin make 작업 공간에서 전환할 수 있습니다([또는 기본 ROS 도구를 사용하는 경우 catkin 작업 공간 만들기에 대한 튜토리얼 페이지 참조](http://wiki.ros.org/) catkin/Tutorials/create_a_workspace)). pi가 인터넷에 연결되어 있지 않으면 catkin 명령을 사용하여 다른 컴퓨터에 작업 공간을 만든 다음 scp를 통해 wifi를 통해 RPi에 파일을 복사할 수 있습니다. 예: `scp spotMicro/* ubuntu@10.42.0.1:~/catkin_ws/src/`.
 
 ```
 catkin_ws/
@@ -60,35 +59,36 @@ catkin_ws/
 │   └── ...
 ```
 
-Note that this repo utilizes two git submodules, which require additional steps to check out. After checking out the main repo, checkout the submodules via:
+이 저장소는 두 개의 git 하위 모듈을 사용하며 이를 확인하려면 추가 단계가 필요합니다. 기본 저장소를 확인한 후 다음을 통해 하위 모듈을 확인하세요.
 
 ```
 git submodule update --init --recursive
 git submodule update --recursive
 ```
 
-If any git permission errors are encountered, try the following suggestions via [this stackoverflow post](https://stackoverflow.com/questions/8197089/fatal-error-when-updating-submodule-using-git).
+git 권한 오류가 발생하면 [이 stackoverflow 게시물](https://stackoverflow.com/questions/8197089/fatal-error-when-updating-submodule-using-git)을 통해 다음 제안을 시도해 보세요.
 
-Three additional ROS packages may need to be installed for this project to build succesfully. They can be installed via:
+이 프로젝트를 성공적으로 빌드하려면 세 개의 추가 ROS 패키지를 설치해야 할 수도 있습니다. 다음을 통해 설치할 수 있습니다.
+
 ```
 sudo apt-get install ros-kinetic-joy
 sudo apt-get install ros-kinetic-rplidar-ros
 sudo apt-get install ros-kinetic-hector-slam
 ```
 
-Since the same repo is checked out on both a pi and a laptop/PC, you will need to install an i2c library on the laptop/pc for the software to compile correctly. The `i2cpwm_board` node is not run on the laptop/pc, but compilation will look for dependencies for this node. Install the necessary library via:
+동일한 저장소가 pi와 노트북/PC 모두에서 체크아웃되므로 소프트웨어가 올바르게 컴파일되도록 노트북/PC에 i2c 라이브러리를 설치해야 합니다. `i2cpwm_board` 노드는 노트북/PC에서 실행되지 않지만 컴파일은 이 노드에 대한 종속성을 찾습니다. 다음을 통해 필요한 라이브러리를 설치하십시오:
 `sudo apt-get install libi2c-dev`
 
-Configure catkin tools so cmake Release flag is added. This speeds up code execution. Alternatively, if you want to debug through an IDE such as VSCode, use build type Debug so debug symbols are generated:
+cmake 릴리스 플래그가 추가되도록 catkin 도구를 구성합니다. 이렇게 하면 코드 실행 속도가 빨라집니다. 또는 VSCode와 같은 IDE를 통해 디버깅하려면 빌드 유형 디버그를 사용하여 디버그 기호가 생성되도록 하세요:
 `catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release`
 
-Compile spot_micro_motion_cmd and i2cpwm_board nodes via catkin tools. The command below will automatically build i2cpwmboard in the process as it is a dependency. E.g.: 
+catkin 도구를 통해 spot_micro_motion_cmd 및 i2cpwm_board 노드를 컴파일합니다. 아래 명령은 종속성이므로 프로세스에서 i2cpwmboard를 자동으로 빌드합니다:
 `catkin build spot_micro_motion_cmd` 
 
-Or just build entire project:
+아니면 전체 프로젝트를 빌드하세요:
 `catkin build`
 
-If you get an error like the below when running on the pi its likely you are missing the libi2c-dev, which may not be installed in the rpi image you download. To fix this, you could install the library on your pi with an `apt-get` command. If you don't have internet on the pi, you can download the file as a debian `.deb` package to your main computer with the right version for ubuntu 16.04 (https://ubuntu.pkgs.org/16.04/ubuntu-universe-amd64/libi2c-dev_3.1.1-1_all.deb.html) and then copy the file via `scp` to the pi (`scp libi2c-dev_3.1.1-1_all.deb ubuntu@10.42.0.1:~/`) and and install it manually (`sudo dpkg -i libi2c-dev_3.1.1-1_all.deb`).
+pi에서 실행할 때 아래와 같은 오류가 발생하면 다운로드한 rpi 이미지에 libi2c-dev가 설치되지 않았을 가능성이 높습니다. 이 문제를 해결하려면 `apt-get` 명령을 사용하여 pi에 라이브러리를 설치할 수 있습니다. pi에 인터넷이 없으면 우분투 16.04에 적합한 버전이 있는 기본 컴퓨터에 데비안 `.deb` 패키지로 파일을 다운로드할 수 있습니다(https://ubuntu.pkgs.org/16.04/ubuntu-universe-amd64/libi2c-dev_3.1.1-1_all.deb.html) 그런 다음 `scp`를 통해 파일을 pi에 복사합니다(`scp libi2c-dev_3.1.1-1_all.deb ubuntu@10.42.0.1:~/`) 그리고 수동으로 설치하세요(`sudo dpkg -i libi2c-dev_3.1.1-1_all.deb`).
 ```
 ros-i2cpwmboard/CMakeFiles/i2cpwm_board.dir/build.make:62: recipe for target 'ros-i2cpwmboard/CMakeFiles/i2cpwm_board.dir/src/i2cpwm_controller.cpp.o' failed
 make[2]: *** [ros-i2cpwmboard/CMakeFiles/i2cpwm_board.dir/src/i2cpwm_controller.cpp.o] Error 1
@@ -96,20 +96,20 @@ CMakeFiles/Makefile2:2343: recipe for target 'ros-i2cpwmboard/CMakeFiles/i2cpwm_
 ```
 
 #### Note on Walking Gaits
-The default gait implemented is a 8 phase gait that incorporates body movement which helps maintain balance and stability. An alternate trot gait, where the diagonally opposite legs move simultaneously, can achieve faster walking speeds, but is less stable and requires careful positioning of the robot's center of mass. The trot gait is the one depicted in the animation at the top of this document. See the `spot_micro_motion_cmd` node's config file for information on how to switch to the trot gait. The 8 phase gait can be observed in the linked Youtube video.
+구현된 기본 보행은 균형과 안정성을 유지하는 데 도움이 되는 신체 움직임을 통합한 8 phase gait입니다. 대각선으로 반대쪽 다리가 동시에 움직이는 대체 trot gait은 더 빠른 보행 속도를 달성할 수 있지만 안정성이 낮고 로봇 질량 중심의 신중한 위치 지정이 필요합니다. trot gait은 이 문서 상단의 애니메이션에 묘사된 것입니다. trot gait으로 전환하는 방법에 대한 자세한 내용은 `spot_micro_motion_cmd` 노드의 구성 파일을 참조하세요. 8 phase gait은 링크된 유튜브 영상에서 보실 수 있습니다.
 
 ## General Instructions
-This section attemps to be a full set of instructions to get a spot micro robot calibrated and running with this code.
+이 섹션에서는 이 코드를 사용하여 스팟 마이크로 로봇을 보정하고 실행하기 위한 전체 지침 세트를 시도합니다.
 
 #### Servo Configuration
 
-Comprehensive instructions for servo installation, calibration, and configuration can be found in [servo_calibration](docs/servo_calibration.md) document.
+서보 설치, 교정 및 구성에 대한 포괄적인 지침은 [servo_calibration](docs/servo_calibration.md) 문서에서 찾을 수 있습니다.
 
 #### Running:
-Open at least two terminal windows, with at least one ssh'ed to the raspberry pi. I reccomend using a terminal multiplexer such as `tmux` for convenience. Start the following launch files in the respective terminals:
-* `roslaunch spot_micro_motion_cmd motion_cmd.launch`: Run on the Raspberry Pi. Launches the i2c_pwmboard node as well as the robot's motion control node. On startup, the motion command node sends a servo configuration message to the i2c_pwmboard node, then starts a state machines and enteres an idle state.
-* `roslaunch spot_micro_keyboard_command keyboard_command.launch` Run on a local machine. Launches the keyboard command node, for issuing keyboard commands to the spot micro robot
-* **OPTIONAL**: The above two launch files can take optional command line arguments to start additional nodes. Some of the command line arguments are listed below.
+적어도 하나의 SSH를 통해 라즈베리 파이에 연결된 두 개 이상의 터미널 창을 엽니다. 편의를 위해 `tmux`와 같은 터미널 멀티플렉서를 사용하는 것이 좋습니다. 해당 터미널에서 다음 실행 파일을 시작합니다:
+* `roslaunch spot_micro_motion_cmd motion_cmd.launch`: 라즈베리파이에서 실행해보세요. i2c_pwmboard 노드와 로봇의 모션 제어 노드를 시작합니다. 시작 시 모션 명령 노드는 i2c_pwmboard 노드에 서보 구성 메시지를 보낸 다음 상태 머신을 시작하고 유휴 상태에 들어갑니다.
+* `roslaunch spot_micro_keyboard_command keyboard_command.launch`로컬 컴퓨터에서 실행합니다. 스팟 마이크로 로봇에 키보드 명령을 내리기 위한 키보드 명령 노드를 시작합니다.
+* **선택사항**: 위의 두 시작 파일은 추가 노드를 시작하기 위해 선택적 명령줄 인수를 사용할 수 있습니다. 명령줄 인수 중 일부가 아래에 나열되어 있습니다.
     * Command line arguments for `motion_cmd.launch`:
         * `run_standalone:=true`: Runs the motion command node standalone (without running the i2c_pwmboard node)
         * `debug_mode:=true`: Overrides the `debug_mode` parameter to true. Useful in combination with `run_standalone` for running or debugging the motion command node on a PC instead of the RPi
@@ -120,32 +120,32 @@ Open at least two terminal windows, with at least one ssh'ed to the raspberry pi
 * For running SLAM, see the [SLAM document](docs/slam_information.md) for more information, which is also referenced in the [Additional Project Components](#additional-project-components) section.
         
 
-Stopping and exiting the keyboard command launch file may require typing `quit` and pressing `Ctrl-C`, as well as closing any plot windows if plotting was utilized. 
+키보드 명령 실행 파일을 중지하고 종료하려면 'quit'을 입력하고 'Ctrl-C'를 눌러야 할 뿐만 아니라 플로팅이 활용된 경우 모든 플롯 창을 닫아야 할 수도 있습니다.
 
-Command line arguments are added to the end of a `roslaunch` command, and multiple arguments can be appended at once, for example:
+명령줄 인수는 `roslaunch` 명령 끝에 추가되며 여러 인수를 한 번에 추가할 수 있습니다. 예를 들면 다음과 같습니다:
 `roslaunch spot_micro_motion_cmd motion_cmd.launch run_standalone:=true debug_mode:=true`
 
-The launch files are an included convenience, but if needed, nodes can be run individuallay via `rosrun` (except for spot_micro_motion command which must be launched by launch file to read in parameters). For example, the minimum required nodes could be run with the following three commands in three seperate terminals:
+실행 파일은 포함되어 있어 편리하지만 필요한 경우 'rosrun'을 통해 노드를 개별적으로 실행할 수 있습니다(매개변수를 읽기 위해 실행 파일에서 시작해야 하는 spot_micro_motion 명령 제외). 예를 들어, 세 개의 별도 터미널에서 다음 세 가지 명령을 사용하여 최소 필수 노드를 실행할 수 있습니다:
 * `rosrun i2cpwm_board i2cpwm_board` 
 * `roslaunch spot_micro_motion_cmd motion_cmd.launch run_standalone:=true`
 * `rosrun spot_micro_keyboard_command spotMicroKeyboardMove.py`
 
 
 #### Control instructions:
-The robot software is driven by a finite state machine of discreet control modes. On the terminal running the spot_micro_keyboard_command node, keyboard commands are issued to move through the state machine and also to command body rates and angle commands.
+로봇 소프트웨어는 신중한 제어 모드의 유한 상태 기계에 의해 구동됩니다. spot_micro_keyboard_command 노드를 실행하는 터미널에서는 상태 머신을 통해 이동하고 본체 속도 및 각도 명령을 명령하기 위해 키보드 명령이 실행됩니다.
 
-After all sfotware is started, type in and issue `stand` command in the keyboard control node terminal to command the robot to stand up. From here, either an `idle` command can be issued to sit back down and set the servos to idle, or `angle_cmd` can be issued to command body orientation angles, or `walk` can be issued to enter walk mode.
+모든 소프트웨어가 시작된 후 키보드 제어 노드 터미널에 `stand` 명령을 입력하고 실행하여 로봇이 일어서도록 명령합니다. 여기에서 `idle` 명령을 실행하여 다시 앉아서 서보를 유휴 상태로 설정하거나 `angle_cmd`를 실행하여 신체 방향 각도를 명령하거나 `walk`를 실행하여 걷기 모드로 들어갈 수 있습니다.
 
-In angle_cmd mode, the keys `w` and `s` are used to control pitch, `a` and `d` to control roll, and `q` and `e` to control yaw. `u` is used to exit back to control mode input.
+angle_cmd 모드에서 `w`와 `s` 키는 피치를 제어하는 ​​데 사용되며 `a`와 `d`는 롤을 제어하고 `q`와 `e`는 요를 제어하는 ​​데 사용됩니다. `u`는 제어 모드 입력으로 돌아가는 데 사용됩니다.
 
-In walk command mode, the keys `w` and `s` are used to control forward speed, `a` and `d` to control side speed, and `q` and `e` to control yaw rate. `u` is used to exit back to stand mode.
+walk 모드에서 `w` 및 `s` 키는 전진 속도를 제어하는 ​​데 사용되며 `a` 및 `d`는 측면 속도를 제어하고 `q` 및 `e`는 요 속도를 제어하는 ​​데 사용됩니다. `u`는 스탠드 모드로 돌아가는 데 사용됩니다.
 
-Note that the software does not currently support any command limits so deleterious or even hardware damaging behavior may be experienced if commanding orienetations or body rates beyond the capability of the robot.
+소프트웨어는 현재 명령 제한을 지원하지 않으므로 로봇의 능력을 넘어서는 방향이나 신체 속도를 명령하는 경우 해롭거나 하드웨어에 손상을 주는 동작이 발생할 수 있습니다.
 
-Typing `quit` at the command input will quit the program with the servos fixed at their previous commanded value. Thus is it reccomended to put the robot in idle before quitting. In idle mode servos are commanded such that they hold no fixed position and can "free wheel".
+명령 입력에 `quit`을 입력하면 이전 명령 값으로 고정된 서보와 함께 프로그램이 종료됩니다. 따라서 종료하기 전에 로봇을 유휴 상태로 두는 것이 좋습니다. 유휴 모드에서 서보는 고정된 위치를 유지하지 않고 자유롭게 회전할 수 있도록 명령을 받습니다.
 
 ## Description of ROS Nodes
-* **spot_micro_motion_cmd**: Main node running robot control software. Takes in state event commands and motion commands, outputs servo control commands. Utilizes a yaml configuration file for various software settings. Consists of a state machine with 5 states and the following mode diagram: 
+* **spot_micro_motion_cmd**: 로봇 제어 소프트웨어를 실행하는 메인 노드입니다. 상태 이벤트 명령과 모션 명령을 받아 서보 제어 명령을 출력합니다. 다양한 소프트웨어 설정을 위해 yaml 구성 파일을 활용합니다. 5가지 상태가 있는 상태 기계와 다음 모드 다이어그램으로 구성됩니다: 
 
 ![Spot Micro Walking](assets/state_machine.png)
 
