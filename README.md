@@ -149,9 +149,9 @@ walk 모드에서 `w` 및 `s` 키는 전진 속도를 제어하는 ​​데 사
 
 ![Spot Micro Walking](assets/state_machine.png)
 
-The default gait is a walk style gait that consists of 8 phases, swings only one leg at a time, and shifts the body in between leg swings to balance the body over the 3 legs that remain on the ground. No speed or angle command limits are implemented in the software, but the inverse kinematics model does cruide trigonometric domain function limiting to avoid math errors.
+기본 보행은 8단계로 구성된 걷기 스타일 보행으로, 한 번에 한쪽 다리만 스윙하고, 다리 스윙 사이에 몸을 이동하여 바닥에 남아 있는 3개의 다리로 몸의 균형을 유지합니다. 소프트웨어에서는 속도 또는 각도 명령 제한이 구현되지 않지만 역운동학 모델은 수학 오류를 방지하기 위해 삼각 영역 기능 제한을 순조롭게 수행합니다.
 
-A yaml confguration file is used for holding various software configuration settings, including servo configuration dictionaries. Servo's can be calibrated using the servo_move_keyboard node, a calibration of angles via eye is sufficient for the reasonable performance.
+yaml 구성 파일은 서보 구성 사전을 포함하여 다양한 소프트웨어 구성 설정을 유지하는 데 사용됩니다. 서보는 Servo_move_keyboard 노드를 사용하여 보정할 수 있으며, 합리적인 성능을 위해서는 눈을 통한 각도 보정이면 충분합니다.
 
 * **i2cpwm_board**: Node that controls the pca 9685 servo control board. Operates mostly under proportional control mode, but also in absolute control mode to command servos to idle
 
@@ -173,26 +173,26 @@ Note that the servo control node `i2cpwm_board` should only be commanded by one 
 
 ## Additional Project Components
 #### URDF Model
-The project contains a URDF model of the spot micro platform, along with a custom set of stl files  for visualization. The URDF file was pulled from Florian Wilk's repo, noted at the end of this README, and modified to change the coordinate system orientation, and the dimensions to match dimensions of my spot micro robot. Currently this urdf file is **only** used for RVIZ visualization of the spot micro model. This URDF model should not be treated as perfectly accurate representation of the robot's geometry, nor should the STL files in this repo be used for 3d printing. Use the noted Thingverse files instead. 
+이 프로젝트에는 시각화를 위한 사용자 정의 stl 파일 세트와 함께 스팟 마이크로 플랫폼의 URDF 모델이 포함되어 있습니다. URDF 파일은 이 README 끝에 언급된 Florian Wilk의 저장소에서 가져온 것이며 좌표계 방향을 변경하고 내 스팟 마이크로 로봇의 치수와 일치하도록 치수를 수정했습니다. 현재 이 urdf 파일은 스팟 마이크로 모델의 RVIZ 시각화에만 **사용됩니다**. 이 URDF 모델은 로봇 형상을 완벽하게 정확하게 표현한 것으로 취급되어서는 안 되며 이 저장소의 STL 파일을 3D 프린팅에 사용해서도 안 됩니다. 대신 언급된 Thingverse 파일을 사용하세요.
 
-The URDF model is defined as a `xacro` file, which is a way to define urdf file using macros to automate certain generative actions. The xacro file is located in the `spot_micro_rviz/urdf` directory. A urdf file can be generated from the `.xacro` file for inspection or use, if needed, via running `xacro` after sourcing a ROS development environment. 
+URDF 모델은 특정 생성 작업을 자동화하기 위해 매크로를 사용하여 urdf 파일을 정의하는 방법인 `xacro` 파일로 정의됩니다. xacro 파일은 `spot_micro_rviz/urdf` 디렉토리에 있습니다. ROS 개발 환경을 소싱한 후 `xacro`를 실행하여 검사 또는 사용을 위해 `.xacro` 파일에서 urdf 파일을 생성할 수 있습니다.
 
 #### TF2 Publishing and Odometry
-Robot state transforms are published via TF2. Some primary frames of interest are `base_footprint` and `base_link`, and `lidar_link`. `base_footprint` is a coordinate frame at zero height at the base of the robot frame. `base_link` is the coordinate frame fixed to the body center of the robot, and moves and rotates with body motion. `lidar_link` is a coordinate frame aligned with an installed lidar.
+로봇 상태 변환은 TF2를 통해 게시됩니다. 관심 있는 기본 프레임은 `base_footprint`, `base_link`, `lidar_link`입니다. `base_footprint`는 로봇 프레임 베이스의 높이가 0인 좌표계입니다. `base_link`는 로봇의 몸체 중심에 고정된 좌표계로 몸체의 움직임에 따라 움직이고 회전합니다. `lidar_link`는 설치된 LiDAR와 정렬된 좌표계입니다.
 
-An odometry frame, `odom`, is optionally available and can be enabled via a configurable parameter in the `spot_micro_motion_cmd.yaml` file. If enabled, `odom` is parent to the `base_footprint` frame.  **Note that odometry is grossly inaccurate and not calibrated whatsoever**. It is a pure integration of robot rate commands and thus drifts unbounded with errors over time. It is provided for any useful purpose it may serve.
+주행 거리 측정 프레임인 `odom`은 선택적으로 사용할 수 있으며 `spot_micro_motion_cmd.yaml` 파일의 구성 가능한 매개변수를 통해 활성화할 수 있습니다. 활성화된 경우 `odom`은 `base_footprint` 프레임의 상위 항목입니다. **주행 거리 측정은 매우 부정확하며 전혀 보정되지 않습니다**. 이는 로봇 속도 명령의 순수한 통합이므로 시간이 지남에 따라 오류가 무제한으로 표류됩니다. 이는 유용한 목적으로 제공됩니다.
 
 #### SLAM
-If a lidar, such as a RPLidar A1, is mounted to the robot frame, 2d mapping is possible through SLAM with additional ROS nodes, such as hector_slam. More information about running SLAM through this project is described in the [SLAM information](docs/slam_information.md) document.
+로봇 프레임에 RPLidar A1과 같은 LiDAR를 장착하면 hector_slam과 같은 추가 ROS 노드를 사용하여 SLAM을 통해 2D 매핑이 가능합니다. 본 프로젝트를 통한 SLAM 실행에 대한 자세한 내용은 [SLAM 정보](docs/slam_information.md) 문서에 설명되어 있습니다.
 
 ## Future Work
-The current software supports basic state machine operation of the spot micro robot, orientation control at rest, and rate command in forward, sideways, and yaw directions, completely through external command messages.
+현재 소프트웨어는 외부 명령 메시지를 통해 스팟 마이크로 로봇의 기본 상태 기계 작동, 정지 상태의 방향 제어, 전진, 측면 및 요 방향의 속도 명령을 완벽하게 지원합니다.
 
-My desired future goals for this project, in order of preference, are to:
+이 프로젝트에서 내가 원하는 미래 목표는 선호도 순으로 다음과 같습니다:
 1. ~~Incorporate a lidar (particularly the Slamtec RPLIDAR A1) to achieve simple 2D mapping of a room via SLAM. This may require the addition of an IMU for robot orientation sensing (for example, an Adafruit 9-DOF IMU BNO055).~~
-2. Develop an autonomous motion planning module to guide the robot to execute a simple task around a sensed 2D environment. For example, navigate the perimeter of a room, and dynamically avoid introduced obstacles.
-3. Incorporate a camera or webcam and create a software module to conduct basic image classification. For example, perceive a closed fist or open palm, and have the robot react in specific ways to each.
-4. Implement a more advanced robot controller that can reject external disturbances. 
+2. 감지된 2D 환경에서 간단한 작업을 실행하도록 로봇을 안내하는 자율 동작 계획 모듈을 개발합니다. 예를 들어, 방의 경계를 탐색하고 장애물을 동적으로 피합니다.
+3. 카메라나 웹캠을 통합하고 기본적인 이미지 분류를 수행하는 소프트웨어 모듈을 만듭니다. 예를 들어, 닫힌 주먹이나 열린 손바닥을 인식하고 로봇이 각각에 특정한 방식으로 반응하도록 합니다.
+4. 외부 방해를 거부할 수 있는 더욱 발전된 로봇 컨트롤러를 구현합니다.
 
 ## External Links and References
 * Spot Micro AI community: https://gitlab.com/custom_robots/spotmicroai
