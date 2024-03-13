@@ -26,22 +26,21 @@ RPLidar A1을 위한 맞춤형 플랫폼 및 마운트 어댑터는 [at this thi
 
 
 ## Coordinate Frames
-There are many coordinate frames on the spot micro frame (one at each joint!), but some of the more important frames are described here.
-
+스팟 마이크로 프레임에는 많은 좌표 프레임이 있지만(각 조인트에 하나씩!), 더 중요한 프레임 중 일부는 여기에 설명되어 있습니다.
 
 #### Kinematics Coordinate Frame
-With regard to kinematics of the robot frame, the coordinate frame is oriented as follows: X positive forward, Y positive up, Z positive left. This frame was is only relevant if working on the kinematic calculations for the robot. It is the same coordinate frame as used in the paper sourced for the inverse kinematic calculations for this project ("Inverse Kinematic Analysis Of A Quadruped Robot").
+로봇 프레임의 운동학과 관련하여 좌표 프레임은 X 양의 앞, Y 양의 위, Z 양의 왼쪽으로 향합니다. 이 프레임은 로봇의 운동학 계산을 수행하는 경우에만 관련이 있습니다. 이 프로젝트의 역 운동학 계산을 위해 논문에서 제공한 것과 동일한 좌표 프레임입니다("네 발 달린 로봇의 역 운동학 분석").
 
 ![Kinematic coordinate system](../assets/kinematic_coord_system.jpg)
 
 #### TF2 Coordinate Frame 
-The TF2 coordinate frames is the base robot body coordinate frame used for all transforms published to TF2 within the ROS framework. This is the robot coordinate frame of interest with regard to mapping and navigation. This frame is oriented as follows: X positive forward, Y positive left, Z positive up.
+TF2 좌표 프레임은 ROS 프레임워크 내에서 TF2에 게시되는 모든 변환에 사용되는 기본 로봇 본체 좌표 프레임입니다. 매핑 및 탐색과 관련하여 관심 있는 로봇 좌표 프레임입니다. 이 프레임은 X 양의 전방, Y 양의 좌측, Z 양의 상방으로 향합니다.
 
 ![tf2 coordinate system](../assets/tf2_coord_system.jpg)
 
 
 ## Sample Hardware Install Photos
-The following photos a sample installation of components on the spot micro frame.
+다음은 스팟 마이크로 프레임에 구성 요소를 설치한 샘플 사진입니다.
 
 
 ![Robot top no servos](../assets/robot_top_no_servos.jpg)
