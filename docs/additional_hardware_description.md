@@ -8,7 +8,7 @@ This document provides some addition description of the harware for the spot mic
 
 ## Custom 3d Printed Parts
 
-KDY의 원래 디자인에서 확장하기 위해 여러 개의 맞춤형 3D 인쇄물이 만들어졌습니다. 여기에는 추가 보강재를 제공하기 위한 맞춤형 어깨 조립품과 편의를 위한 여러 장착 플랫폼이 포함됩니다.
+KDY의 원래 디자인에서 확장하기 위해 여러 개의 맞춤형 3D 인쇄물을 만들었습니다. 여기에는 추가 보강재를 제공하기 위한 맞춤형 어깨 조립품과 편의를 위한 여러 장착 플랫폼이 포함됩니다.
 
 아래에 표시된 수정된 어깨 조립품은 어깨 축에 추가 보강을 제공하기 위해 추가 플라스틱 조각을 포함합니다. [thingverse page](https://www.thingiverse.com/thing:4591999) 내용을 참조하여 어깨 관절 부품의 전체 세트를 인쇄해야 합니다. 반대쪽 다리에 대해서는 두 세트를 좌우반전하여 인쇄해야 합니다. 수정된 어깨에는 조립을 위해 추가로 8x M3x10 나사, 8x M3 너트 및 4x F625z 베어링이 필요합니다.
 
