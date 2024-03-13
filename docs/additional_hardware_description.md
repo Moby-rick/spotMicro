@@ -8,18 +8,18 @@ This document provides some addition description of the harware for the spot mic
 
 ## Custom 3d Printed Parts
 
-Several custom 3d printed pieces were created to expand on KDY's original design. These include a custom shoulder assembly to provide additional reinforcement, and several mounting platforms for convenience. 
+KDY의 원래 디자인에서 확장하기 위해 여러 개의 맞춤형 3D 인쇄물이 만들어졌습니다. 여기에는 추가 보강재를 제공하기 위한 맞춤형 어깨 조립품과 편의를 위한 여러 장착 플랫폼이 포함됩니다.
 
-The modified shoulder assembly, shown below, includes an additional plastic piece to provide additional reinforcement to the shoulder axis. It requires printing an antire set of shoulder joint parts, which can be found [at this thingverse page](https://www.thingiverse.com/thing:4591999). Two sets must be printed mirrored for the opposite side's legs. The modified shoulder will require an additional 8x M3x10 screws, 8x M3 nuts, and 4x F625zz bearings in total for assembly.
+아래에 표시된 수정된 어깨 조립품은 어깨 축에 추가 보강을 제공하기 위해 추가 플라스틱 조각을 포함합니다. [thingverse page](https://www.thingiverse.com/thing:4591999) 내용을 참조하여 어깨 관절 부품의 전체 세트를 인쇄해야 합니다. 반대쪽 다리에 대해서는 두 세트를 좌우반전하여 인쇄해야 합니다. 수정된 어깨에는 조립을 위해 추가로 8x M3x10 나사, 8x M3 너트 및 4x F625z 베어링이 필요합니다.
 
 
 ![Custom Shoulder Assembly](../assets/custom_shoulder_assembly.jpg)
 
-A plain center body platform, and two convenience platforms for mounting the RPI 3 and PCA9685 boards can be found [at this thingverse page](https://www.thingiverse.com/thing:4596267). The Raspberry Pi platform is shown below. It can be adhered to the center platform by double sided foam tape. Small wood screws can be used are used t attach the RPi3 and PCA9685 to these platforms.
+일반 중앙 본체 플랫폼과 RPI 3 및 PCA9685 보드를 장착할 수 있는 두 개의 편의 플랫폼은 [thingverse page](https://www.thingiverse.com/thing:4596267)에서 찾을 수 있습니다. Raspberry Pi 플랫폼은 아래에 나와 있습니다. 양면 폼 테이프로 중앙 플랫폼에 부착할 수 있습니다. RPi3 및 PCA9685를 이 플랫폼에 부착하려면 작은 나무 나사를 사용할 수 있습니다.
 
 ![RPI platform](../assets/rpi_platform.jpg)
 
-A custom platform and mount adapter for a RPLidar A1 can be found at [at this thingverse page](https://www.thingiverse.com/thing:4713180). Design courtesy of Maggie Mathiue. Like the platforms above, the base can be adhered to the center body platform by double sided foam tape. The mount adapter is attached to a RPLiadr A1 by 4x M2.5x8 screws and to the bottom platform by small wood screws.
+RPLidar A1을 위한 맞춤형 플랫폼 및 마운트 어댑터는 [at this thingverse page](https://www.thingiverse.com/thing:4713180)에서 확인할 수 있습니다. 디자인은 Maggie Mathiue가 제공합니다. 위 플랫폼과 마찬가지로 양면 폼 테이프로 베이스를 중앙 몸체 플랫폼에 부착할 수 있습니다. 마운트 어댑터는 RPLiadr A1에 4x M2.5x8 나사로 부착하고 바닥 플랫폼에는 작은 나무 나사로 부착합니다.
 
 ![lidar mount](../assets/lidar_mount.jpg)
 
